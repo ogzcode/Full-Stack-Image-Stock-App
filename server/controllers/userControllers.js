@@ -1,11 +1,12 @@
 import { User } from "../model/User.js";
 import { __dirname } from "../app.js";
 import fs from "fs";
+import { Image } from "../model/Image.js";
+import { Tags } from "../model/Tags.js";
 
 export const getUser = async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.user.user_id });
-        //tüm kullanıcı verilerini göndermeye gerek yok
         res.status(200).json({ user, images: user.images });
     }
     catch (error) {
@@ -19,12 +20,15 @@ export const getUser = async (req, res) => {
 
 export const uploadImage = async (req, res) => {
     try {
+        const { title, tags } = req.body;
+        const tagsArray = tags.split(",");
+        const name = req.file.originalname;
         const user = await User.findOne({ _id: req.user.user_id });
-        let imageName = req.file.originalname;
 
-        if (!user.images.includes(imageName)) {
-            user.images.push(imageName);
-            await user.save();
+        if (user && !(await Image.findOne({ name: name }))) {
+            const now = new Date();
+            const image = await Image.create({ name, title, user: user._id, time: now.toLocaleDateString(), tags: [...tagsArray] });
+            image.save();
         }
 
         res.status(201).send("Image uploaded");
@@ -41,9 +45,10 @@ export const uploadImage = async (req, res) => {
 export const getAllImage = async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.user.user_id });
+        const images = await Image.find({ user: user._id });
 
         res.status(200).json({
-            images: user.images
+            images
         });
     }
     catch {
@@ -80,3 +85,18 @@ export const deleteImage = async (req, res) => {
         });
     }
 }
+
+export const getByTag = async (req, res) => {
+    try {
+        const tags = req.body.tags;
+        const images = await Image.find({ tags: { $in: [tags]}});
+        res.status(200).send(images);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(400).json({
+            message: "Bad request",
+            error
+        });
+    }
+};

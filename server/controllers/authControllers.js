@@ -25,7 +25,7 @@ export const registerController = async (req, res) => {
         user.token = token;
         await user.save();
 
-        res.status(201).json({ message: "User created " });
+        res.status(201).json({ message: "User created ", token });
     }
     catch (error) {
         res.status(400).json({
