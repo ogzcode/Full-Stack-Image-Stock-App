@@ -8,7 +8,7 @@ import { docMiddleware } from "./middleware/docMiddleware.js";
 import { authMiddleWare } from "./middleware/authMiddleware.js";
 import { registerController } from "./controllers/authControllers.js";
 import { loginController } from "./controllers/authControllers.js";
-import { deleteImage, getAllImage, getUser, uploadImage } from "./controllers/userControllers.js";
+import { deleteImage, getAllImage, getByTag, getUser, uploadImage } from "./controllers/userControllers.js";
 
 const app = express();
 
@@ -31,10 +31,12 @@ app.get("/test", (req, res) => {
 app.post("/api/register", registerController);
 app.post("/api/login", loginController);
 
-app.get("/api/auth/user", authMiddleWare, getUser);
+app.post("/api/auth/user", authMiddleWare, getUser);
 app.post("/api/auth/upload-image", authMiddleWare, docMiddleware.single("image"), uploadImage);
 app.get("/api/auth/getAllImage", authMiddleWare, getAllImage);
 app.delete("/api/auth/deleteImage", authMiddleWare, deleteImage);
+
+app.post("/api/auth/getByTag", authMiddleWare, getByTag);
 
 app.listen(3000, () => {
     console.log("Sunucu: http://localhost:3000/");
