@@ -12,7 +12,6 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    images: [String],
     token: {
         type: String,
         unique: true
