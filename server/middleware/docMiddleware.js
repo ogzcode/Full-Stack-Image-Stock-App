@@ -6,7 +6,7 @@ export const docMiddleware = multer({
             cb(null, file.originalname);
         },
         destination: (req, file, cb) => {
-            cb(null, "public/uploads");
+            cb(null, "public");
         }
     })
 });

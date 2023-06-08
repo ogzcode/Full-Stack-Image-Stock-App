@@ -6,6 +6,7 @@ export const authMiddleWare = async (request, response, next) => {
         const decodedToken = await jwt.verify(token, "RANDOM-TOKEN");
 
         const user = await decodedToken;
+
         request.user = user;
 
         next();
