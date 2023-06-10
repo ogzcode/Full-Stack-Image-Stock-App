@@ -2,7 +2,6 @@ import { User } from "../model/User.js";
 import { __dirname } from "../app.js";
 import fs from "fs";
 import { Image } from "../model/Image.js";
-import { Tags } from "../model/Tags.js";
 
 export const getUser = async (req, res) => {
     try {
@@ -60,21 +59,21 @@ export const getAllImage = async (req, res) => {
     }
 };
 
+
 export const deleteImage = async (req, res) => {
     try {
-        const user = await User.findOne({ _id: req.user.user_id });
+        const { name } = req.query;
+        const { id } = req.params;
 
-        const deletedImage = __dirname + "/public/uploads/" + user.images[req.body.index];
+        const images = await Image.find({ name });
+        await Image.findByIdAndDelete({ _id: id });
 
-        if (deletedImage && (user.images.length === 1)) {
+        const deletedImage = __dirname + "/public/" + name;
+
+        if (deletedImage && (images.length === 1)) {
             fs.unlinkSync(deletedImage);
         }
 
-        user.images.splice(req.body.index, 1);
-        console.log(user.images);
-        await user.save();
-
-        console.log("hehlo");
         res.status(204).send("Image deleted");
     }
     catch (error) {
@@ -89,7 +88,7 @@ export const deleteImage = async (req, res) => {
 export const getByTag = async (req, res) => {
     try {
         const tags = req.body.tags;
-        const images = await Image.find({ tags: { $in: [tags]}});
+        const images = await Image.find({ tags: { $in: [tags] } });
         res.status(200).send(images);
     }
     catch (error) {

@@ -34,7 +34,7 @@ app.post("/api/login", loginController);
 app.post("/api/auth/user", authMiddleWare, getUser);
 app.post("/api/auth/upload-image", authMiddleWare, docMiddleware.single("image"), uploadImage);
 app.get("/api/auth/getAllImage", authMiddleWare, getAllImage);
-app.delete("/api/auth/deleteImage", authMiddleWare, deleteImage);
+app.delete("/api/auth/deleteImage/:id", authMiddleWare, deleteImage);
 
 app.post("/api/auth/getByTag", authMiddleWare, getByTag);
 
