@@ -5,7 +5,6 @@ import { useAuth } from "./auth/core/Auth";
 
 import AuthPage from "./auth/AuthPage";
 import Profile from "./component/Profile";
-import ErrorPage from "./error/ErrorPage";
 import { useEffect, useRef } from "react";
 
 import { getUserByToken } from "./auth/core/request";
