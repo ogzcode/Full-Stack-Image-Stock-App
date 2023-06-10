@@ -40,12 +40,12 @@ export const removeAuth = () => {
 
 export const setupAxios = (axios) => {
     axios.defaults.headers.Accept = "application/json";
+
     axios.interceptors.request.use(
         (config) => {
             const auth = getAuth();
-
-            if (auth && auth.token) {
-                config.headers.Authorization = `Bearer ${auth.token}`;
+            if (auth) {
+                config.headers.Authorization = `Bearer ${auth}`;
             }
 
             return config;

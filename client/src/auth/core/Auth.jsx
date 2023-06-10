@@ -9,11 +9,11 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuthState] = useState(getAuth());
     const [currentUser, setCurrentUser] = useState();
     const [error, setError] = useState("");
-    
+
     const saveAuth = (auth) => {
-        console.log("Auth 13", auth);
         if (auth) {
-             setAuth(auth);
+            setAuthState(auth);
+            setAuth(auth);
         }
         else {
             removeAuth(auth);
@@ -21,13 +21,14 @@ const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
+        setAuthState(undefined);
         saveAuth(undefined);
         setCurrentUser(undefined);
     };
 
     return (
         <AuthContext.Provider value={{ auth, saveAuth, currentUser, setCurrentUser, logout, error, setError }}>
-            { children }
+            {children}
         </AuthContext.Provider>
     );
 
