@@ -28,10 +28,9 @@ export default function SignupPage() {
 
         try {
             const auth = await register(email, password);
-            saveAuth(auth);
+            saveAuth(auth.data.token);
             const user = await getUserByToken(auth.data.token);
             setCurrentUser(user);
-            navigate("/profile");
         }
         catch (error) {
             console.log(error);
