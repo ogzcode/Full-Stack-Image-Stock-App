@@ -25,11 +25,10 @@ function SearchWithTag() {
                 <input
                     type="text"
                     placeholder="Search by tag"
-                    className="w-1/3 mr-8 rounded py-1 px-2 outline-0"
+                    className="w-1/3 mr-8 rounded py-3 px-4 outline-0"
                     value={tag}
                     onChange={e => setTag(e.target.value)}
                 />
-                <button className="bg-white shadow-xl shadow-slate-900/30 text-black py-1 rounded px-4 font-medium transition hover:scale-90">Search</button>
             </form>
         </div>
     );

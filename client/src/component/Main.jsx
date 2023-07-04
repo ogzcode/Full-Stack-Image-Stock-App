@@ -7,10 +7,10 @@ function Main() {
     const [openImageForm, setOpenImageForm] = useState(false);
     return (
         <>
-            <div className="text-center relative mb-12">
+            <div className="text-center mb-12 ">
                 <button
                     onClick={() => setOpenImageForm(!openImageForm)}
-                    className="text-white text-xl border-2 border-white px-8 py-2 rounded-lg transition shadow-xl shadow-slate-900/30 hover:scale-95">Add new photo</button>
+                    className="text-white text-lg border-2 border-white px-8 py-2 rounded-lg transition shadow-xl shadow-slate-900/30 hover:scale-95">Add new photo</button>
                 {
                     openImageForm && <AddImageForm onChange={setOpenImageForm} />
                 }

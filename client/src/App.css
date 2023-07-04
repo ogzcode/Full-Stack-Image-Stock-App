@@ -26,3 +26,13 @@
     opacity: 1;
     transition: .2s;
 }
+
+.select-file[type=file]::file-selector-button {
+    border: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #475569;
+    color: white;
+    letter-spacing: .5px;
+}
